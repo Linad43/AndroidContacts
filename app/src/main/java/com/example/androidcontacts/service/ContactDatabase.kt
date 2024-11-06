@@ -6,10 +6,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.androidcontacts.model.Contact
-import com.example.androidcontacts.service.ContactDatabase.Companion.EXPORT_SCHEMA
-import com.example.androidcontacts.service.ContactDatabase.Companion.VERSION
 
-@Database(entities = [Contact::class], version = VERSION, exportSchema = EXPORT_SCHEMA)
+@Database(entities = [Contact::class], version = 1, exportSchema = false)
 abstract class ContactDatabase : RoomDatabase() {
     abstract fun getContactDao(): ContactDao
 
@@ -19,15 +17,15 @@ abstract class ContactDatabase : RoomDatabase() {
         const val EXPORT_SCHEMA = false
         private var INSTANCE: ContactDatabase? = null
         fun getDatabase(
-//            fragment: Fragment
-            context: Context
+            fragment: Fragment
+//            context: Context,
         ): ContactDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-//                    fragment.requireContext().applicationContext,
-                    context.applicationContext,
+                    fragment.requireContext().applicationContext,
+//                    context.applicationContext,
                     ContactDatabase::class.java,
-                    NAME_DATABASE
+                    "contact_database"
                 ).build()
                 INSTANCE = instance
                 instance

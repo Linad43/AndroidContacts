@@ -15,7 +15,7 @@ interface ContactDao {
     suspend fun delete(contact: Contact)
 
     @Query("SELECT * FROM contact_table ORDER BY id ASC")
-    fun getAllContacts(): ArrayList<Contact>
+    fun getAllContacts(): MutableList<Contact>
 
     @Query("DELETE FROM contact_table")
     fun deleteAll()

@@ -16,6 +16,7 @@ import com.example.androidviewpager.service.CommonFun
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.joinAll
 
 
 class ListContactsFragment : Fragment() {
@@ -44,14 +45,20 @@ class ListContactsFragment : Fragment() {
             }
             true
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         saveBTN.setOnClickListener {
             if (CommonFun.allETIsNotEmpty(listET)) {
                 val contact = Contact(
+//                    0,
                     nameET.text.toString(),
                     numPhoneET.text.toString()
                 )
-                addContact(db!!, contact)
-                readDatabase(db!!)
+                addContact(db!!, contact).start()
+                readDatabase(db!!).start()
             }
         }
     }
@@ -65,7 +72,7 @@ class ListContactsFragment : Fragment() {
         toolbar.inflateMenu(R.menu.main_menu)
         listET.add(nameET)
         listET.add(numPhoneET)
-//        db = ContactDatabase.getDatabase(this)
+        db = ContactDatabase.getDatabase(this)
         readDatabase(db!!)
     }
 
@@ -78,10 +85,10 @@ class ListContactsFragment : Fragment() {
     @OptIn(DelicateCoroutinesApi::class)
     private fun readDatabase(db: ContactDatabase) =
         GlobalScope.async {
-        listTextTV.text = ""
-        val list = db.getContactDao().getAllContacts()
-        list.forEach {
-            listTextTV.append("${it.name} = ${it.numPhone}\n")
+            listTextTV.text = ""
+            val listForTV = db.getContactDao().getAllContacts()
+            listForTV.forEach {
+                listTextTV.append("${it.name} = ${it.numPhone}\n")
+            }
         }
-    }
 }
