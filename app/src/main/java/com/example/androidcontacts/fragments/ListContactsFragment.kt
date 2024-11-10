@@ -9,24 +9,28 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.androidcontacts.R
-import com.example.androidcontacts.model.Contact
-import com.example.androidcontacts.service.ContactDatabase
+import com.example.androidcontacts.database.model.Contact
+import com.example.androidcontacts.database.service.ContactDatabase
 import com.example.androidviewpager.service.CommonFun
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.joinAll
 
-
+/*
 class ListContactsFragment : Fragment() {
 
     private var db: ContactDatabase? = null
+    private lateinit var recyclerRL:RecyclerView
     private lateinit var toolbar: Toolbar
     private lateinit var nameET: EditText
     private lateinit var numPhoneET: EditText
     private lateinit var saveBTN: Button
-    private lateinit var listTextTV: TextView
+    private lateinit var deleteBTN: Button
+//    private lateinit var listTextTV: TextView
     private val listET = arrayListOf<EditText>()
 
     override fun onCreateView(
@@ -57,8 +61,13 @@ class ListContactsFragment : Fragment() {
                     nameET.text.toString(),
                     numPhoneET.text.toString()
                 )
-                addContact(db!!, contact).start()
-                readDatabase(db!!).start()
+                val adding = addContact(db!!, contact)
+                readDatabase(db!!, adding)
+            }
+        }
+        deleteBTN.setOnClickListener {
+            GlobalScope.async {
+                db?.getContactDao()?.deleteAll()
             }
         }
     }
@@ -68,12 +77,14 @@ class ListContactsFragment : Fragment() {
         nameET = view.findViewById(R.id.nameET)
         numPhoneET = view.findViewById(R.id.numPhoneET)
         saveBTN = view.findViewById(R.id.saveBTN)
-        listTextTV = view.findViewById(R.id.listTextTV)
+        deleteBTN = view.findViewById(R.id.deleteBTN)
+        recyclerRL = view.findViewById(R.id.recyclerRV)
+//        listTextTV = view.findViewById(R.id.listTextTV)
         toolbar.inflateMenu(R.menu.main_menu)
         listET.add(nameET)
         listET.add(numPhoneET)
         db = ContactDatabase.getDatabase(this)
-        readDatabase(db!!)
+//        readDatabase(db!!)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -83,6 +94,16 @@ class ListContactsFragment : Fragment() {
         }
 
     @OptIn(DelicateCoroutinesApi::class)
+    private fun readDatabase(db: ContactDatabase, adding: Deferred<Unit>) =
+        GlobalScope.async {
+            adding.await()
+            listTextTV.text = ""
+            val listForTV = db.getContactDao().getAllContacts()
+            listForTV.forEach {
+                listTextTV.append("${it.name} = ${it.numPhone}\n")
+            }
+        }
+    @OptIn(DelicateCoroutinesApi::class)
     private fun readDatabase(db: ContactDatabase) =
         GlobalScope.async {
             listTextTV.text = ""
@@ -91,4 +112,5 @@ class ListContactsFragment : Fragment() {
                 listTextTV.append("${it.name} = ${it.numPhone}\n")
             }
         }
-}
+
+}*/

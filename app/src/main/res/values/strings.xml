@@ -7,4 +7,6 @@
     <string name="numPhone">Номер телефона</string>
     <string name="save">Сохранить</string>
     <string name="isDoNotEmpty">Поле не может быть пустым</string>
+    <string name="deleteAll">Удалить все</string>
+    <string name="date_create">"Дата создания: 00:00 "</string>
 </resources>

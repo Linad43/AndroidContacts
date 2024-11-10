@@ -8,10 +8,11 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/containerFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/containerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
@@ -62,17 +63,36 @@
 <!--                android:inputType="number" />-->
 <!--        </LinearLayout>-->
 
-<!--        <Button-->
-<!--            android:id="@+id/saveBTN"-->
-<!--            android:layout_width="wrap_content"-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/saveBTN"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:text="@string/save" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/deleteBTN"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:text="@string/deleteAll" />-->
+<!--        </LinearLayout>-->
+<!--        &lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:id="@+id/listTextTV"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_height="wrap_content"/>&ndash;&gt;-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recyclerRV"-->
+<!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:layout_margin="5dp"-->
-<!--            android:text="@string/save" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/listTextTV"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" />-->
+<!--            tools:listitem="@layout/list_item" />-->
 <!--    </LinearLayout>-->
 
 </LinearLayout>

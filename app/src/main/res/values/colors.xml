@@ -5,4 +5,7 @@
     <color name="violet">#6750A4</color>
     <color name="red">#FF0000</color>
     <color name="gray">#A8A3AA</color>
+    <color name="background_item">#DABEFF</color>
+    <color name="black_gray">#373B39</color>
+    <color name="pale_mauve">#C77DBB</color>
 </resources>
